@@ -1,14 +1,15 @@
 <div>
-<ul>
-    <li><a href="/">Home</a></li>
-</ul>
-<form method="post">
-    <label for="username">Username:</label>
-    <input type="text" id="username" name="username" value="{{username}}">
-    <br/>
-    <label for="password">Password:</label>
-    <input type="password" id="password" name="password">
-    <br/>
-    <input type="submit" value="Login">
-</form>
+    <ul style="list-style: none; padding-left: 0">
+        <li><a href="/">Home</a></li>
+    </ul>
+    <p style="font-weight: bolder">{{message}}</p>
+    <form method="post">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" value="{{username}}">
+        <br/>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password">
+        <br/>
+        <input type="submit" value="Login">
+    </form>
 </div>

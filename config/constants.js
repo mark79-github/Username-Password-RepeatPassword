@@ -9,11 +9,11 @@ module.exports = {
         USERNAME_MIN_LENGTH: "Username must be at least 5 characters",
         PASSWORD_MIN_LENGTH: "Password must be at least 5 characters",
         USERNAME_ONLY_ALPHABETICAL: "Username must contains only digits and/or latin letters",
-        CONFIRMATION_PASSWORD_ERROR: "Your password and confirmation password do not match",
+        CONFIRMATION_PASSWORD_ERROR: "Both passwords should be the same ...",
         PASSWORD_ONLY_ALPHABETICAL: "Password must contains only digits and/or latin letters",
-        WRONG_CREDENTIALS: "Wrong username and/or password",
+        WRONG_CREDENTIALS: "Wrong username or password",
         USERNAME_IS_IN_USE: (username) => {
-            return `Username ${username} is already taken ...`
+            return `Username "${username}" is already in use ...`
         },
         DB_CONNECTED: (host, name) => {
             return `Successfully connected to ${host} : db -> ${name}`
