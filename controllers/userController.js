@@ -1,7 +1,7 @@
 const {Router} = require('express');
 const {userService} = require('../services');
 const config = require('../config/config');
-const {msg}  = require('../config/constants');
+const {msg} = require('../config/constants');
 const {isGuest, isLogged, validate} = require('../middlewares');
 
 const router = Router();
@@ -29,7 +29,7 @@ router.post('/login', isGuest, validate.user.login, (req, res) => {
             }
             return res
                 .cookie(config.authCookie, token, cookieOptions)
-                .redirect('/products');
+                .redirect('/');
         })
         .catch((error) => {
             res.render('users/login', {message: error.message});
@@ -48,6 +48,24 @@ router.post('/register', isGuest, validate.user.register, (req, res) => {
     //     res.render('users/register', {message: err.message});
     // }
 
+    // // register + login
+    // userService.register(req.body)
+    //     .then(() => {
+    //         return userService.login(req.body)
+    //     })
+    //     .then((token) => {
+    //         if (!token) {
+    //             throw {message: msg.WRONG_CREDENTIALS};
+    //         }
+    //         const cookieOptions = {maxAge: 1000 * 60 * 60, httpOnly: true}
+    //         res.cookie(config.authCookie, token, cookieOptions);
+    //         return res.redirect('/');
+    //     })
+    //     .catch(error => {
+    //         res.render('users/register', {message: error.message});
+    //     });
+
+    // only register
     userService.register(req.body)
         .then(() => {
             res.redirect('/users/login');
@@ -55,6 +73,7 @@ router.post('/register', isGuest, validate.user.register, (req, res) => {
         .catch(error => {
             res.render('users/register', {message: error.message});
         });
+
 });
 
 router.get('/logout', isLogged, (req, res) => {
