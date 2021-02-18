@@ -15,7 +15,7 @@ module.exports = {
                 user.username = username.trim();
             }
 
-            if (!constants.USERNAME_REGEX.test(username.trim())) {
+            if (!constants.USERNAME_REGEX.test(username)) {
                 user.errors.push(msg.USERNAME_ONLY_ALPHABETICAL);
                 user.username = undefined;
             }
@@ -24,11 +24,11 @@ module.exports = {
                 user.errors.push(msg.PASSWORD_MIN_LENGTH);
             }
 
-            if (password.trim() !== repeatPassword.trim()) {
+            if (password !== repeatPassword) {
                 user.errors.push(msg.CONFIRMATION_PASSWORD_ERROR);
             }
 
-            if (!constants.PASSWORD_REGEX.test(password.trim())) {
+            if (!constants.PASSWORD_REGEX.test(password)) {
                 user.errors.push(msg.PASSWORD_ONLY_ALPHABETICAL);
             }
 
@@ -52,13 +52,17 @@ module.exports = {
                 user.username = username.trim();
             }
 
-            if (!constants.USERNAME_REGEX.test(username.trim())) {
+            if (!constants.USERNAME_REGEX.test(username)) {
                 user.errors.push(msg.USERNAME_ONLY_ALPHABETICAL);
                 user.username = undefined;
             }
 
             if (password.trim().length === 0 || password.trim().length < constants.PASSWORD_MIN_LENGTH) {
                 user.errors.push(msg.PASSWORD_MIN_LENGTH);
+            }
+
+            if (!constants.PASSWORD_REGEX.test(password)) {
+                user.errors.push(msg.PASSWORD_ONLY_ALPHABETICAL);
             }
 
             if (!user.errors.length) {

@@ -9,7 +9,6 @@ async function register(data) {
 
     let {username, password} = data;
     username = username.toLowerCase().trim();
-    password = password.toLowerCase().trim();
 
     // let user = await User.findOne({username});
     // if (user) throw {message: 'Username is in use'};
@@ -20,17 +19,16 @@ async function register(data) {
     await User.findOne({username})
         .then((user) => {
             if (user) {
-                throw {message: msg.USERNAME_IS_IN_USE(data.username)}
+                throw {message: msg.USERNAME_IS_IN_USE(username)}
             }
             return new User({username, password}).save();
         });
 }
 
 function login(data) {
-    let {username, password} = data;
 
+    let {username, password} = data;
     username = username.toLowerCase().trim();
-    password = password.toLowerCase().trim();
 
     // let user = await User.findOne({username}) || {};
     // let isMatch = await bcrypt.compare(password, user.password || '');
@@ -56,11 +54,11 @@ function login(data) {
             }
             return [false];
         })
-        .then(([isMatch, user]) => {
-            if (isMatch) {
+        .then(([passwordMatches, user]) => {
+            if (passwordMatches) {
                 return jwt.sign({id: user._id, username: user.username}, config.privateKey, {expiresIn: "1h"});
             } else {
-                return '';
+                return null;
             }
         });
 }
